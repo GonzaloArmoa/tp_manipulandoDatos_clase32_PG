@@ -17,7 +17,7 @@ module.exports = [
 
     check('awards')
         .isDecimal().withMessage('El awards debe ser un número'),
-
+  
     check('length')
         .notEmpty().withMessage('La duración es requerida').bail()
         .isLength({

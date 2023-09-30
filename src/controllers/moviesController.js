@@ -89,6 +89,9 @@ const moviesController = {
     },
     update: function (req,res) {
         // TODO
+        const errors = validationResult(req);
+
+        if(errors.isEmpty()){
         const {title, rating, awards, release_date, length} = req.body
 
         db.Movie.update(
@@ -108,12 +111,27 @@ const moviesController = {
 
             db.Movie.findByPk(req.params.id)
             .then(movie => {
-                res.render('moviesDetail.ejs', {movie})
+                res.render('moviesEdit', {
+                    Movie:movie,
+                    moment
+                })
             })
 
         }).catch(error => console.log(error))
-        
-    },
+
+        }else {
+                db.Movie.findByPk(req.params.id)
+                .then(movie => {
+                    return res.render('moviesEdit', {
+                        errors : errors.mapped(),
+                        Movie : movie,
+                        moment
+                    })
+                })
+                .catch(error => console.log(error)) 
+    }
+
+},     
     delete: function (req, res) {
         // TODO
 
@@ -158,10 +176,15 @@ const moviesController = {
         })
         .then((response) => {
             console.log("response Movie =>", response)
+            }) 
+            .then(
+                db.Movie.findAll() 
+                    .then(movies => {
+                    res.render('moviesList.ejs', {movies})
+                }) 
 
-        })
-        }).catch(error => console.log(error))
-}
+        )}).catch(error => console.log(error))
+            }
 }
 
 module.exports = moviesController;

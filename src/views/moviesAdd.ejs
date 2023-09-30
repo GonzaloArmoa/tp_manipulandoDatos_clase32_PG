@@ -16,17 +16,29 @@
     <br>
     <section class="formulario">
         <form action="/movies/create" method="POST">
-            <label for="title">Title </label>
-            <p><input type="text" name="title" id=""></p>
-            <label for="rating">Rating </label>
-            <p><input type="number" name="rating" id=""> </p>
-            <label for="awards">Awards </label>
-            <p><input type="number" name="awards" id=""></p>
-            <label for="release_date">Release date </label>
-            <p><input type="date" name="release_date" id=""></p>
-            <label for="length">Length </label>
-            <p><input type="number" name="length" id=""></p>
-
+            <div>
+                <label for="title">Title </label>
+                <p><input type="text" name="title" id="" value="<%= locals.old && (old.title && old.title) %>"></p>
+                <small style="color: red"><%= locals.errors && (errors.title && errors.title.msg) %></small>
+            </div>
+            <div>
+                <label for="rating">Rating </label>
+                <p><input type="number" name="rating" id="" value="<%= locals.old && (old.rating && old.rating) %>"> </p>
+                <small style="color: red"><%= locals.errors && (errors.rating && errors.rating.msg) %></small>
+            </div>
+            <div>
+                <label for="awards">Awards </label>
+                <p><input type="number" name="awards" id="" value="<%= locals.old && (old.awards && old.awards) %>"></p>
+                <small style="color: red"><%= locals.errors && (errors.awards && errors.awards.msg) %></small>
+            </div>
+            <div>
+                <label for="release_date">Release date </label>
+                <p><input type="date" name="release_date" id=""></p>
+                <div></div>
+                <label for="length">Length </label>
+                <p><input type="number" name="length" id="" value="<%= locals.old && (old.length && old.length) %>"></p>
+                <small style="color: red"><%= locals.errors && (errors.length && errors.length.msg) %></small>
+            </div>
             <br>
             <p> <button class="botonAgregar" type="submit">Agregar</button>
             
